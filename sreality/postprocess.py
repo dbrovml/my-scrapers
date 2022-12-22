@@ -76,3 +76,7 @@ if __name__ == "__main__":
     # collect apartment profiles into a single df and dump
     properties = property_unify(properties)
     properties.to_csv("./sreality/.data/processed.csv", index=None)
+
+import pandas as pd
+foo = pd.read_csv("./sreality/.data/processed.csv")
+foo.shape
