@@ -1,0 +1,1 @@
+This repo contains scripts for scraping data from several resources to be used for machine learning and data science pet projects.
