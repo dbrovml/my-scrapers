@@ -14,7 +14,7 @@ SELECTED_FACTS = [
     "Energetická náročnost budovy", "Výtah", "Užitná plocha", "Umístění objektu", 
     "Vybavení", "Parkování", "Terasa", "Balkón", "Lodžie", "Sklep",
     "Bezbariérový", "Garáž", "Bazén", "id", "locality_district_id",
-    "Voda", "Topení", "Odpad", "Doprava", "Komunikace"
+    "Voda", "Odpad"
 ]
 
 
