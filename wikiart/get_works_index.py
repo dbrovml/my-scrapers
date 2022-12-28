@@ -27,12 +27,21 @@ def load_metadata(file):
     work_name   = file.split("---")[1 ].replace(".json", "")
     work_author = file.split("---")[0 ]
 
+    year  = None
+    parts = work_name.split("-")
+    parts.reverse()
+    for part in parts:
+        if len(part) == 4:
+            try   : year = int(part)
+            except: pass
+
     with open(metadata_dir + file, "rb") as f:
         metadata = json.load(f)
 
     metadata.update({"author": work_author})
     metadata.update({"name"  : work_name  })
     metadata.update({"imagef": imagefile  })
+    metadata.update({"year"  : year       })
 
     return metadata
 
@@ -44,20 +53,19 @@ if __name__ == "__main__":
     metadata_dicts = Parallel(n_jobs=32, backend="threading")(
         delayed(load_metadata)(file) for file 
         in os.listdir(metadata_dir))
-    
-    # extract and explode style, genre, media
     index = pd.DataFrame(metadata_dicts)
+
+    # prettify genre, style, media
     for col in ["Style", "Genre", "Media"]:
         func = lambda col: [s.strip() for s in col.split(",")]
-        index.loc[index[col].isna(), col] = "<NA>"
+        index.loc[index[col].isna(),  col ] = "<NA>"
         index[col] = index[col].apply(func)
-        for idx in range(3): 
-            def func(c):
-                try   : return c[idx]
-                except: return "<NA>"
-            index[f"{col.lower()}{idx}"] \
-                = index[col].apply(func)
-        index = index.drop(col , axis=1)
+        func = lambda col: " | ".join(col ).lower()
+        index[col] = index[col].apply(func)
+    
+    # prettify tags
+    func = lambda col: " | ".join(col).lower()
+    index["tag"] = index["tag"].apply(func)
     
     # find and drop corrupted images
     corrupted = Parallel(n_jobs=32, backend="threading")(
