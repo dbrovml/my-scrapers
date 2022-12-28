@@ -28,12 +28,12 @@ def load_metadata(file):
     work_name   = file.split("---")[1 ].replace(".json", "")
     work_author = file.split("---")[0 ]
 
-    year  = None
+    year  = "<na>"
     parts = work_name.split("-")
     parts.reverse()
     for part in parts:
         if len(part) == 4:
-            try   : year = int(part)
+            try   : year = str(int(part))
             except: pass
 
     with open(metadata_dir + file, "rb") as f:
