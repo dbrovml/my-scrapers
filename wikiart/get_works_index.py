@@ -67,6 +67,7 @@ if __name__ == "__main__":
     # prettify tags
     func = lambda col: unidecode(" | ".join(col ).lower())
     index["tag"] = index["tag"].apply(func)
+    index.loc[index["tag"] == "", "tag"] = "<na>"
     
     # find and drop corrupted images
     corrupted = Parallel(n_jobs=32, backend="threading")(
