@@ -1,4 +1,5 @@
-# 
+#
+from unidecode import unidecode
 from joblib import Parallel
 from joblib import delayed
 from PIL import Image
@@ -60,11 +61,11 @@ if __name__ == "__main__":
         func = lambda col: [s.strip() for s in col.split(",")]
         index.loc[index[col].isna(),  col ] = "<NA>"
         index[col] = index[col].apply(func)
-        func = lambda col: " | ".join(col ).lower()
+        func = lambda col: unidecode(" | ".join(col ).lower())
         index[col] = index[col].apply(func)
     
     # prettify tags
-    func = lambda col: " | ".join(col).lower()
+    func = lambda col: unidecode(" | ".join(col ).lower())
     index["tag"] = index["tag"].apply(func)
     
     # find and drop corrupted images
