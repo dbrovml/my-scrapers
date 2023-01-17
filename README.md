@@ -1,6 +1,6 @@
 # MY-SCRAPERS
 This repo contains a couple of data scraping scripts to be used for machine learning and data science pet projects. <br>
-Currently there are two scrapers:
+Currently there are three scrapers:
 - [www.wikiart.org]: ~ 180 000 images of artworks along with available metadata, e.g. author, genre, style, etc.
 - [www.sreality.cz]: ~ 5 500 for sale local property profiles along with detailed apartment metadata and price.
 - [www.rohlik.cz]: ~ 10 000 food products, their metadata, and images.
